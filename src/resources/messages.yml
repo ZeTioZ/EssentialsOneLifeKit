@@ -1,0 +1,27 @@
+prefix: "&8[&aEOLK&8] "
+
+got-a-kit:
+  - "&2You got the kit &d{kit} &2you'll be able to get a new kit after your next &cdeath&2!"
+
+player-added:
+  - "&b{player} &2has been &cadded &2to the EOLK list! He now can't get a kit until he dies!"
+  
+player-removed:
+  - "&b{player} &2has been &eremoved &2from the EOLK list! He now can get a new kit!"
+
+help-command:
+  - "&d/eolk add <player> &c» &2Add a player to the EOLK list"
+  - "&d/eolk remove <player> &c» &2Remove a player from the EOLKlist"
+  - "&d/eolk help &c» &2Display the help page"
+  - "&d/eolk reload &c» &2Reload the plugin"
+
+reload-command:
+  - "&aPlugin reloaded !"
+
+errors:
+  already-got-a-kit:
+    - "&cYou already got a kit on this life! You'll be able to get an other kit after your death!"
+  already-in-the-list:
+    - "&b{player} &cis already in the EOLK list! He has to wait until he dies to get a new kit!"
+  not-in-the-list:
+    - "&b{player} &cis not in the EOLK list! He can already get a new kit without having to die!"

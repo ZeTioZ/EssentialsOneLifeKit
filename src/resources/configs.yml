@@ -1,0 +1,16 @@
+# List of kits commands to monitor
+kits-commands:
+ - /kit
+ - /essentials:kit
+ - /ekit
+ - /essentials:ekit
+ - /kits
+ - /essentials:kits
+ - /ekits
+ - /essentials:ekits
+
+# List of the kits to monitor
+kits-list:
+ - start
+ - example1
+ - example2

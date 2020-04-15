@@ -1,0 +1,9 @@
+name: EssentialsOneLifeKit
+version: 0.0.1
+author: ZeTioZ
+main: fr.zetioz.essentialsonelifekit.EOLKMain
+soft-depend: [Essentials]
+commands:
+  essentialsonelifekit:
+    aliases: [eolk]
+    description: Main EOLK command
