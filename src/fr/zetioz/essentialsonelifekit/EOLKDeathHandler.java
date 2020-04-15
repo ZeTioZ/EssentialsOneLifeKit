@@ -7,12 +7,12 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
-public class EOLKEvent implements Listener
+public class EOLKDeathHandler implements Listener
 {
 	private EOLKMain main;
 	private List<String> playerUUID;
 	
-	public EOLKEvent(EOLKMain main)
+	public EOLKDeathHandler(EOLKMain main)
 	{
 		this.main = main;
 		this.playerUUID = new ArrayList<>();

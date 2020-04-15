@@ -12,7 +12,7 @@ public class EOLKMain extends JavaPlugin
 	private Plugin plugin;
 	private FilesManager filesManager;
 	private EOLKCommand eolkCommand;
-	private EOLKEvent eolkEvent;
+	private EOLKDeathHandler eolkEvent;
 	
 	@Override
 	public void onEnable()
@@ -24,7 +24,7 @@ public class EOLKMain extends JavaPlugin
 		filesManager.createDatabaseFile();
 		
 		this.eolkCommand = new EOLKCommand(this);
-		this.eolkEvent = new EOLKEvent(this);
+		this.eolkEvent = new EOLKDeathHandler(this);
 		
 		registerEvents(this, eolkCommand, eolkEvent);
 		getCommand("essentialsonelifekit").setExecutor(eolkCommand);
@@ -61,7 +61,7 @@ public class EOLKMain extends JavaPlugin
 		return this.eolkCommand;
 	}
 	
-	public EOLKEvent getEOLKEvent()
+	public EOLKDeathHandler getEOLKEvent()
 	{
 		return this.eolkEvent;
 	}

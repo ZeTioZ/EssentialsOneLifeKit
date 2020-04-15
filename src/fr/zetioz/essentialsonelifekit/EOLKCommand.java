@@ -98,12 +98,23 @@ public class EOLKCommand implements Listener, CommandExecutor
 				}
 				else if(args[0].equalsIgnoreCase("reload"))
 				{
-					Bukkit.getPluginManager().disablePlugin(main);
-					Bukkit.getPluginManager().enablePlugin(main);
-					for(String line : messagesFile.getStringList("reload-command"))
+					if(sender.hasPermission("eolk.reload"))
 					{
-						line = ChatColor.translateAlternateColorCodes('&', line);
-						sender.sendMessage(prefix + line);
+						Bukkit.getPluginManager().disablePlugin(main);
+						Bukkit.getPluginManager().enablePlugin(main);
+						for(String line : messagesFile.getStringList("reload-command"))
+						{
+							line = ChatColor.translateAlternateColorCodes('&', line);
+							sender.sendMessage(prefix + line);
+						}
+					}
+					else
+					{
+						for(String line : messagesFile.getStringList("errors.not-enough-permission"))
+						{
+							line = ChatColor.translateAlternateColorCodes('&', line);
+							sender.sendMessage(prefix + line);
+						}
 					}
 				}
 				else
@@ -115,25 +126,36 @@ public class EOLKCommand implements Listener, CommandExecutor
 			{
 				if(args[0].equalsIgnoreCase("add"))
 				{
-					//Add a player to the uuid list
-					OfflinePlayer playerToCheck = Bukkit.getOfflinePlayer(args[1]);
-					if(!playerUUID.contains(playerToCheck.getUniqueId().toString()))
+					if(sender.hasPermission("eolk.add"))
 					{
-						playerUUID.add(playerToCheck.getUniqueId().toString());
-						main.getEOLKEvent().setPlayerUUID(playerUUID);
-						main.getFilesManager().saveDatabase();
-						for(String line : messagesFile.getStringList("player-added"))
+						//Add a player to the uuid list
+						OfflinePlayer playerToCheck = Bukkit.getOfflinePlayer(args[1]);
+						if(!playerUUID.contains(playerToCheck.getUniqueId().toString()))
 						{
-							line = line.replace("{player}", args[1]);
-							line = ChatColor.translateAlternateColorCodes('&', line);
-							sender.sendMessage(prefix + line);
+							playerUUID.add(playerToCheck.getUniqueId().toString());
+							main.getEOLKEvent().setPlayerUUID(playerUUID);
+							main.getFilesManager().saveDatabase();
+							for(String line : messagesFile.getStringList("player-added"))
+							{
+								line = line.replace("{player}", args[1]);
+								line = ChatColor.translateAlternateColorCodes('&', line);
+								sender.sendMessage(prefix + line);
+							}
+						}
+						else
+						{
+							for(String line : messagesFile.getStringList("errors.already-in-the-list"))
+							{
+								line = line.replace("{player}", args[1]);
+								line = ChatColor.translateAlternateColorCodes('&', line);
+								sender.sendMessage(prefix + line);
+							}
 						}
 					}
 					else
 					{
-						for(String line : messagesFile.getStringList("errors.already-in-the-list"))
+						for(String line : messagesFile.getStringList("errors.not-enough-permission"))
 						{
-							line = line.replace("{player}", args[1]);
 							line = ChatColor.translateAlternateColorCodes('&', line);
 							sender.sendMessage(prefix + line);
 						}
@@ -141,24 +163,35 @@ public class EOLKCommand implements Listener, CommandExecutor
 				}
 				else if(args[0].equalsIgnoreCase("remove"))
 				{
-					OfflinePlayer playerToCheck = Bukkit.getOfflinePlayer(args[1]);
-					if(playerUUID.contains(playerToCheck.getUniqueId().toString()))
+					if(sender.hasPermission("eolk.remove"))
 					{
-						playerUUID.remove(playerToCheck.getUniqueId().toString());
-						main.getEOLKEvent().setPlayerUUID(playerUUID);
-						main.getFilesManager().saveDatabase();
-						for(String line : messagesFile.getStringList("player-removed"))
+						OfflinePlayer playerToCheck = Bukkit.getOfflinePlayer(args[1]);
+						if(playerUUID.contains(playerToCheck.getUniqueId().toString()))
 						{
-							line = line.replace("{player}", args[1]);
-							line = ChatColor.translateAlternateColorCodes('&', line);
-							sender.sendMessage(prefix + line);
+							playerUUID.remove(playerToCheck.getUniqueId().toString());
+							main.getEOLKEvent().setPlayerUUID(playerUUID);
+							main.getFilesManager().saveDatabase();
+							for(String line : messagesFile.getStringList("player-removed"))
+							{
+								line = line.replace("{player}", args[1]);
+								line = ChatColor.translateAlternateColorCodes('&', line);
+								sender.sendMessage(prefix + line);
+							}
+						}
+						else
+						{
+							for(String line : messagesFile.getStringList("errors.not-in-the-list"))
+							{
+								line = line.replace("{player}", args[1]);
+								line = ChatColor.translateAlternateColorCodes('&', line);
+								sender.sendMessage(prefix + line);
+							}
 						}
 					}
 					else
 					{
-						for(String line : messagesFile.getStringList("errors.not-in-the-list"))
+						for(String line : messagesFile.getStringList("errors.not-enough-permission"))
 						{
-							line = line.replace("{player}", args[1]);
 							line = ChatColor.translateAlternateColorCodes('&', line);
 							sender.sendMessage(prefix + line);
 						}
@@ -180,10 +213,21 @@ public class EOLKCommand implements Listener, CommandExecutor
 
 	private void sendHelpPage(CommandSender sender)
 	{
-		for(String line : messagesFile.getStringList("help-command"))
+		if(sender.hasPermission("eolk.help"))
 		{
-			line = ChatColor.translateAlternateColorCodes('&', line);
-			sender.sendMessage(prefix + line);
+			for(String line : messagesFile.getStringList("help-command"))
+			{
+				line = ChatColor.translateAlternateColorCodes('&', line);
+				sender.sendMessage(prefix + line);
+			}
+		}
+		else
+		{
+			for(String line : messagesFile.getStringList("errors.not-enough-permission"))
+			{
+				line = ChatColor.translateAlternateColorCodes('&', line);
+				sender.sendMessage(prefix + line);
+			}
 		}
 	}
 }
