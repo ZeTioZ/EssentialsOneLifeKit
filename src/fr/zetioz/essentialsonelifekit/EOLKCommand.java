@@ -82,93 +82,97 @@ public class EOLKCommand implements Listener, CommandExecutor
 	@SuppressWarnings("deprecation")
 	//region Main Plugin Command
 	@Override
-	public boolean onCommand(CommandSender sender, Command cmd, String msg, String[] args) {
-		if(args.length == 0)
+	public boolean onCommand(CommandSender sender, Command cmd, String msg, String[] args)
+	{
+		if(cmd.getName().equalsIgnoreCase("essentialsonelifekit"))
 		{
-			sendHelpPage(sender);
-		}
-		else if(args.length == 1)
-		{
-			if(args[0].equalsIgnoreCase("help"))
+			if(args.length == 0)
 			{
 				sendHelpPage(sender);
 			}
-			else if(args[0].equalsIgnoreCase("reload"))
+			else if(args.length == 1)
 			{
-				Bukkit.getPluginManager().disablePlugin(main);
-				Bukkit.getPluginManager().enablePlugin(main);
-				for(String line : messagesFile.getStringList("reload-command"))
+				if(args[0].equalsIgnoreCase("help"))
 				{
-					line = ChatColor.translateAlternateColorCodes('&', line);
-					sender.sendMessage(prefix + line);
+					sendHelpPage(sender);
 				}
-			}
-			else
-			{
-				sendHelpPage(sender);
-			}
-		}
-		else if(args.length == 2)
-		{
-			if(args[0].equalsIgnoreCase("add"))
-			{
-				//Add a player to the uuid list
-				OfflinePlayer playerToCheck = Bukkit.getOfflinePlayer(args[1]);
-				if(!playerUUID.contains(playerToCheck.getUniqueId().toString()))
+				else if(args[0].equalsIgnoreCase("reload"))
 				{
-					playerUUID.add(playerToCheck.getUniqueId().toString());
-					main.getEOLKEvent().setPlayerUUID(playerUUID);
-					main.getFilesManager().saveDatabase();
-					for(String line : messagesFile.getStringList("player-added"))
+					Bukkit.getPluginManager().disablePlugin(main);
+					Bukkit.getPluginManager().enablePlugin(main);
+					for(String line : messagesFile.getStringList("reload-command"))
 					{
-						line = line.replace("{player}", args[1]);
 						line = ChatColor.translateAlternateColorCodes('&', line);
 						sender.sendMessage(prefix + line);
 					}
 				}
 				else
 				{
-					for(String line : messagesFile.getStringList("errors.already-in-the-list"))
-					{
-						line = line.replace("{player}", args[1]);
-						line = ChatColor.translateAlternateColorCodes('&', line);
-						sender.sendMessage(prefix + line);
-					}
+					sendHelpPage(sender);
 				}
 			}
-			else if(args[0].equalsIgnoreCase("remove"))
+			else if(args.length == 2)
 			{
-				OfflinePlayer playerToCheck = Bukkit.getOfflinePlayer(args[1]);
-				if(playerUUID.contains(playerToCheck.getUniqueId().toString()))
+				if(args[0].equalsIgnoreCase("add"))
 				{
-					playerUUID.remove(playerToCheck.getUniqueId().toString());
-					main.getEOLKEvent().setPlayerUUID(playerUUID);
-					main.getFilesManager().saveDatabase();
-					for(String line : messagesFile.getStringList("player-removed"))
+					//Add a player to the uuid list
+					OfflinePlayer playerToCheck = Bukkit.getOfflinePlayer(args[1]);
+					if(!playerUUID.contains(playerToCheck.getUniqueId().toString()))
 					{
-						line = line.replace("{player}", args[1]);
-						line = ChatColor.translateAlternateColorCodes('&', line);
-						sender.sendMessage(prefix + line);
+						playerUUID.add(playerToCheck.getUniqueId().toString());
+						main.getEOLKEvent().setPlayerUUID(playerUUID);
+						main.getFilesManager().saveDatabase();
+						for(String line : messagesFile.getStringList("player-added"))
+						{
+							line = line.replace("{player}", args[1]);
+							line = ChatColor.translateAlternateColorCodes('&', line);
+							sender.sendMessage(prefix + line);
+						}
+					}
+					else
+					{
+						for(String line : messagesFile.getStringList("errors.already-in-the-list"))
+						{
+							line = line.replace("{player}", args[1]);
+							line = ChatColor.translateAlternateColorCodes('&', line);
+							sender.sendMessage(prefix + line);
+						}
+					}
+				}
+				else if(args[0].equalsIgnoreCase("remove"))
+				{
+					OfflinePlayer playerToCheck = Bukkit.getOfflinePlayer(args[1]);
+					if(playerUUID.contains(playerToCheck.getUniqueId().toString()))
+					{
+						playerUUID.remove(playerToCheck.getUniqueId().toString());
+						main.getEOLKEvent().setPlayerUUID(playerUUID);
+						main.getFilesManager().saveDatabase();
+						for(String line : messagesFile.getStringList("player-removed"))
+						{
+							line = line.replace("{player}", args[1]);
+							line = ChatColor.translateAlternateColorCodes('&', line);
+							sender.sendMessage(prefix + line);
+						}
+					}
+					else
+					{
+						for(String line : messagesFile.getStringList("errors.not-in-the-list"))
+						{
+							line = line.replace("{player}", args[1]);
+							line = ChatColor.translateAlternateColorCodes('&', line);
+							sender.sendMessage(prefix + line);
+						}
 					}
 				}
 				else
 				{
-					for(String line : messagesFile.getStringList("errors.not-in-the-list"))
-					{
-						line = line.replace("{player}", args[1]);
-						line = ChatColor.translateAlternateColorCodes('&', line);
-						sender.sendMessage(prefix + line);
-					}
+					sendHelpPage(sender);
 				}
 			}
 			else
 			{
 				sendHelpPage(sender);
 			}
-		}
-		else
-		{
-			sendHelpPage(sender);
 		}
 		return false;
 	}

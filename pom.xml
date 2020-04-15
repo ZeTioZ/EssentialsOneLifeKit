@@ -60,7 +60,7 @@
 	</plugins>
 	<resources>
       <resource>
-        <directory>D:\Program Files\eclipse\workspace\EssentialsOneLifeKit\src\resources</directory>
+        <directory>D:\Program Files\eclipse\Git\EssentialsOneLifeKit\src\resources</directory>
       </resource>
     </resources>
   </build>
