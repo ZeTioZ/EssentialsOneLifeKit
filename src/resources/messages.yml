@@ -25,3 +25,5 @@ errors:
     - "&b{player} &cis already in the EOLK list! He has to wait until he dies to get a new kit!"
   not-in-the-list:
     - "&b{player} &cis not in the EOLK list! He can already get a new kit without having to die!"
+  not-enough-permission:
+    - "&cSorry, but you don't have enough permission to do that!"
