@@ -42,16 +42,15 @@ public class EOLKCommand implements Listener, CommandExecutor
 	}
 	
 	//region Sub command processor
+	@SuppressWarnings("unchecked")
 	@EventHandler
 	private void onFWarpCommand(PlayerCommandPreprocessEvent e)
 	{
 		String[] args = e.getMessage().split(" ");
 		if(args.length == 2 && configsFile.getList("kits-commands").contains(args[0]))
 		{
-			@SuppressWarnings("unchecked")
-			List<String> kitsList = (List<String>) configsFile.getList("kits-list");
 			List<String> lowerKitsList = new ArrayList<>();
-			for(String kit : kitsList)
+			for(String kit : (List<String>) configsFile.getList("kits-list"))
 			{
 				lowerKitsList.add(kit.toLowerCase());
 			}
