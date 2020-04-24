@@ -1,5 +1,5 @@
 name: EssentialsOneLifeKit
-version: 0.0.2
+version: 0.0.3
 author: ZeTioZ
 main: fr.zetioz.essentialsonelifekit.EOLKMain
 soft-depend: [Essentials]

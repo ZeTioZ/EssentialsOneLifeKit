@@ -48,7 +48,14 @@ public class EOLKCommand implements Listener, CommandExecutor
 		String[] args = e.getMessage().split(" ");
 		if(args.length == 2 && configsFile.getList("kits-commands").contains(args[0]))
 		{
-			if(configsFile.getList("kits-list").contains(args[1]))
+			@SuppressWarnings("unchecked")
+			List<String> kitsList = (List<String>) configsFile.getList("kits-list");
+			List<String> lowerKitsList = new ArrayList<>();
+			for(String kit : kitsList)
+			{
+				lowerKitsList.add(kit.toLowerCase());
+			}
+			if(lowerKitsList.contains(args[1].toLowerCase()))
 			{
 				if(playerUUID.contains(e.getPlayer().getUniqueId().toString()) && !e.getPlayer().hasPermission("eolk.bypass"))
 				{
