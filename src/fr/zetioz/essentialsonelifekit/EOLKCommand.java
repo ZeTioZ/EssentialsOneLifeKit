@@ -44,7 +44,7 @@ public class EOLKCommand implements Listener, CommandExecutor
 	//region Sub command processor
 	@SuppressWarnings("unchecked")
 	@EventHandler
-	private void onFWarpCommand(PlayerCommandPreprocessEvent e)
+	private void onKitsCommand(PlayerCommandPreprocessEvent e)
 	{
 		String[] args = e.getMessage().split(" ");
 		if(args.length == 2 && configsFile.getList("kits-commands").contains(args[0]))
